@@ -385,7 +385,8 @@ elif page == "Emissions by Region":
     df_continent = df[df['continent'] != 'Unknown'].groupby(["decade", "continent"], as_index=False)["co2_including_luc"].sum()
     fig1 = px.bar(df_continent,
                   x="decade",
-                  y="co2_including_luc",
+                  y="co2_including_luc",            
+                  labels={"co2_including_luc": "CO₂ Including LUC (MtCO₂)"},
                   color="continent",
                   title="CO₂ Emissions by Continent Over Decades",
                   color_discrete_sequence=px.colors.qualitative.Set2)
@@ -415,6 +416,7 @@ elif page == "Emissions by Region":
         fig3 = px.sunburst(df_countries,
                            path=['continent', 'territory'],
                            values="co2_including_luc",
+                           labels={"co2_including_luc": "CO₂ Including LUC (MtCO₂)"},
                            color='co2_including_luc',
                            hover_data=['iso_code'],
                            color_continuous_scale='RdBu',
@@ -427,6 +429,7 @@ elif page == "Emissions by Region":
     fig3 = px.line(df_chn_usa,
                        x="year",
                        y="share_global_co2_including_luc",
+                       labels={"share_global_co2_including_luc": "Share Global CO₂ (%)"},
                        color='territory',
                        title="Country's Share of Global CO₂ Emissions")
     st.plotly_chart(fig3, use_container_width=True)
@@ -457,6 +460,7 @@ elif page == "Emissions per GDP":
                 df_gdp,
                 path=['continent', 'territory'],
                 values="co2_including_luc_per_gdp",
+                labels={"co2_including_luc_per_gdp": "CO₂ Including LUC (MtCO₂)"},
                 color='co2_including_luc_per_gdp',
                 hover_data=['iso_code'],
                 color_continuous_scale='RdBu',
@@ -471,6 +475,7 @@ elif page == "Emissions per GDP":
         fig1 = px.line(df_cod_lbr,
                     x="year",
                     y="share_global_co2_including_luc",
+                       labels={"share_global_co2_including_luc": "Share Global CO₂ (%)"},
                     color='territory',
                     title="Country's Share of Global CO₂ Emissions")
         st.plotly_chart(fig1, use_container_width=True)
@@ -478,14 +483,13 @@ elif page == "Emissions per GDP":
     # --- ROW 2 ---
     st.subheader("CO₂ Emissions in the DRC by Source")
     df_cod = df[df['territory'] == 'Democratic Republic of Congo'][[
-            'year', 'cement_co2', 'co2', 'co2_including_luc',
-            'coal_co2', 'flaring_co2', 'gas_co2', 'oil_co2', 'land_use_change_co2']]
+            'year', 'co2_including_luc', 'land_use_change_co2']]
     df_melted_cod = df_cod.melt(id_vars='year',
                                     var_name='Source',
-                                    value_name='CO₂ Emissions')
+                                    value_name='CO₂ Emissions (MtCO₂)')
     fig4 = px.line(df_melted_cod,
                     x="year",
-                    y="CO₂ Emissions",
+                    y="CO₂ Emissions (MtCO₂)",
                     color='Source',
                     title='DRC: CO₂ Emissions by Source')
     st.plotly_chart(fig4, use_container_width=True)
@@ -494,18 +498,18 @@ elif page == "CO₂ emissions in Spain":
     st.title("And what about Spain?")
     df = pd.read_csv('dataset_visualizacion_co2.csv')
     st.subheader("CO₂ emissions in Spain")
-    df_co2_ESP = df.loc[df['territory'] == 'Spain'][['year', 'cement_co2', 'co2', 'co2_including_luc', 
+    df_co2_ESP = df.loc[df['territory'] == 'Spain'][['year', 'co2', 'co2_including_luc', 
             'coal_co2', 'flaring_co2', 
             'gas_co2', 'oil_co2', 'land_use_change_co2']]
 
     df_melted_co2_ESP = df_co2_ESP.melt(id_vars=['year'],
-                                        value_vars=['co2', 'co2_including_luc', 'cement_co2', 'coal_co2', 'gas_co2', 'oil_co2', 'flaring_co2', 'land_use_change_co2'],
+                                        value_vars=['co2', 'co2_including_luc', 'coal_co2', 'gas_co2', 'oil_co2', 'flaring_co2', 'land_use_change_co2'],
                                         var_name='Source and Land Use',
-                                        value_name='CO₂ Emissions')
+                                        value_name='CO₂ Emissions (MtCO₂)')
 
     fig5 = px.line(df_melted_co2_ESP, 
                 x="year", 
-                y="CO₂ Emissions", 
+                y="CO₂ Emissions (MtCO₂)", 
                 color='Source and Land Use',
                 title='CO₂ emissions in Spain')
     
