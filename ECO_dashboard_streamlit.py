@@ -475,7 +475,7 @@ elif page == "Emissions per GDP":
         fig1 = px.line(df_cod_lbr,
                     x="year",
                     y="share_global_co2_including_luc",
-                       labels={"share_global_co2_including_luc": "Share Global CO₂ (%)"},
+                    labels={"share_global_co2_including_luc": "Share Global CO₂ (%)"},
                     color='territory',
                     title="Country's Share of Global CO₂ Emissions")
         st.plotly_chart(fig1, use_container_width=True)
