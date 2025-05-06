@@ -178,7 +178,6 @@ elif page == "Events and Impacts":
         xaxis_title="Decade",
         yaxis=dict(
             title="Emissions (Mt)",
-            titlefont=dict(color=COLOR_PRIMARY),
             tickfont=dict(color=COLOR_PRIMARY)
         ),
         yaxis2=dict(
@@ -186,7 +185,6 @@ elif page == "Events and Impacts":
             overlaying="y",
             side="right",
             showgrid=False,
-            titlefont=dict(color=COLOR_ACCENT),
             tickfont=dict(color=COLOR_ACCENT)
         ),
         template="plotly_white",
